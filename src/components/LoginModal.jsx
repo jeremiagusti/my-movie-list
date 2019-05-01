@@ -1,39 +1,46 @@
 import React from 'react';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 
 const LoginModal = (props) => {
-    const handleClick = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    
         let email = document.getElementById("email").value; 
-        let password = document.getElementById("password").value; 
-        document.querySelector('#loginModal').modal('hide')
-        props.handleLogin(email, password); 
+        let password = document.getElementById("password").value;   
+        console.log(email)
+        props.handleLogin(email, password);
 
         document.getElementById("email").value = "";
-        document.getElementById("password").value = "";    
+        document.getElementById("password").value = "";  
+        props.closeModal();
+ 
     }
 
     return (
-        <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <input type="email" class="form-control" id="email" placeholder="Email"></input>
-                        <input type="password" class="form-control" id="password" placeholder="Password"></input>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onClick={handleClick}>Login</button>
-                </div>
-            </div>
-            </div>
-        </div>
+        <Modal show={props.showModal} onHide={props.closeModal}>
+            <Modal.Header closeButton>
+                <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group>
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control required type="email" placeholder="Enter email" id="email" />
+                    </Form.Group>
+
+                    <Form.Group>
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control type="password" placeholder="Password" id="password" required/>
+                    </Form.Group>
+
+                    <Button variant="primary" block={true} type="submit" >
+                        Submit
+                    </Button>
+                </Form>
+            </Modal.Body>
+        </Modal>
     )
 }
 

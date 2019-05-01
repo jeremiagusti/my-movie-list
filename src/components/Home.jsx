@@ -2,7 +2,6 @@ import React from 'react';
 import Navbar from './Navbar';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { loginAction } from '../actions/authAction';
 
 const Home = (props) => {
     if (props.isLoggedIn) {
@@ -13,7 +12,7 @@ const Home = (props) => {
     
     return(
         <div className="home">
-            <Navbar handleLogin={props.handleLogin} />
+            <Navbar />
             <div className="container">
                 <h1>List of your favorite shows</h1>
                 {/* Movie Grid right here! */}
@@ -29,12 +28,4 @@ const mapStateToProps = (state) => {
     }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        handleLogin: (email, password) => {
-            dispatch(loginAction(email, password))
-        },
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home); 
+export default connect(mapStateToProps)(Home); 
