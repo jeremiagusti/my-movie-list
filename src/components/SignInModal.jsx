@@ -1,27 +1,30 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const LoginModal = (props) => {
+const SignIn = (props) => {
+    if (props.wrongCred === true) {
+        // Future update: 
+        // Don't use alert.. make this nicer, like message on the modal
+        alert("Wrong email or password");
+        document.getElementById("email").value = "";
+        document.getElementById("password").value = "";   
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
     
         let email = document.getElementById("email").value; 
         let password = document.getElementById("password").value;   
-        console.log(email)
-        props.handleLogin(email, password);
-
-        document.getElementById("email").value = "";
-        document.getElementById("password").value = "";  
-        props.closeModal();
- 
+        props.handleLogin(email, password);        
     }
 
     return (
         <Modal show={props.showModal} onHide={props.closeModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>Sign In</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Form onSubmit={handleSubmit}>
@@ -36,7 +39,7 @@ const LoginModal = (props) => {
                     </Form.Group>
 
                     <Button variant="primary" block={true} type="submit" >
-                        Submit
+                        Log In
                     </Button>
                 </Form>
             </Modal.Body>
@@ -44,5 +47,11 @@ const LoginModal = (props) => {
     )
 }
 
-export default LoginModal;
+const mapStateToProps = (state) => {
+    return {
+        wrongCred: state.authReducer.wrongCred
+    }
+}
+
+export default connect(mapStateToProps)(SignIn);
 

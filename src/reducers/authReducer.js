@@ -1,6 +1,7 @@
 const initState = {
     isLoggedIn: false, 
-    username: ""
+    username: "",
+    wrongCred: undefined
 }
 
 // Reducer
@@ -10,7 +11,8 @@ const authReducer = (state = initState, action) => {
             return {
                 ...state, 
                 isLoggedIn: true, 
-                username: action.payload.username
+                username: action.payload.username,  
+                wrongCred: undefined
             }
         
         case 'LOGOUT':
@@ -18,7 +20,13 @@ const authReducer = (state = initState, action) => {
                 ...state, 
                 isLoggedIn: false,
                 username: ""
-            }           
+            }    
+            
+        case 'LOGIN_ERR': 
+            return {
+                ...state, 
+                wrongCred: true
+            }
 
         default: 
             return state;

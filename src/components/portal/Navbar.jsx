@@ -14,18 +14,18 @@ const Navigation = (props) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <Nav.Link>
-              <Link className="nav-link" to="/portal">Home</Link>
-            </Nav.Link>
-          <Nav.Link>
-              <Link className="nav-link" to="/portal/movies">Movies</Link>
-            </Nav.Link>
-          <Nav.Link>
+          <Nav.Item>
+            <Link className="nav-link" to="/portal">Home</Link>
+            </Nav.Item>
+          <Nav.Item>
+            <Link className="nav-link" to="/portal/movies">Movies</Link>
+          </Nav.Item>
+          <Nav.Item>
             <Link className="nav-link" to="/portal/tv">TV Shows</Link>
-          </Nav.Link>
-          <Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
             <Link className="nav-link" to="/portal/mylist">My List</Link>
-          </Nav.Link>
+          </Nav.Item>
         </Nav>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />

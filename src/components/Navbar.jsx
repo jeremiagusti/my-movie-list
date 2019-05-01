@@ -1,30 +1,41 @@
 import React, { useState } from 'react'; 
 import { connect } from 'react-redux';
-import { loginAction } from '../actions/authAction';
-import LoginModal from './LoginModal';
+import { loginAction, signUpAction } from '../actions/authAction';
+import SignInModal from './SignInModal';
+import SignUpModal from './SignUpModal';
 import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav';
 import Button from 'react-bootstrap/Button';
 
 const Navigation = (props) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showSignInModal, setShowSignInModal] = useState(false);
+  const [showSignUpModal, setShowSignUpModal] = useState(false);
 
-  const openModal = () => {
-    setShowModal(true);
+  const openModal = (e) => {
+    if (e.target.id === "signInBtn")
+      setShowSignInModal(true)
+    else if (e.target.id === "signUpBtn")
+      setShowSignUpModal(true)
   }
 
   const closeModal = () => {
-    setShowModal(false);
+    setShowSignInModal(false);
+    setShowSignUpModal(false);
   }
 
   return (
     <>
       <Navbar bg="light" expand="md">
         <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-        <Button className="ml-auto my-2 mx-2 my-sm-0" variant="primary" onClick={openModal}>Login</Button>
+        <Nav className="ml-auto">
+          <Button className="ml-auto my-2 mx-2 my-sm-0" variant="primary" id="signInBtn" onClick={openModal}>Sign In</Button>
+          <Button className="ml-auto my-2 mx-2 my-sm-0" variant="success" id="signUpBtn" onClick={openModal}>Sign Up</Button>
+        </Nav>
       </Navbar>
 
       
-      <LoginModal handleLogin={props.handleLogin} showModal={showModal} closeModal={closeModal} />  
+      <SignInModal handleLogin={props.handleLogin} showModal={showSignInModal} closeModal={closeModal} />  
+      <SignUpModal handleSignUp={props.handleSignUp} showModal={showSignUpModal} closeModal={closeModal} />
     </>
   )
 }
@@ -34,6 +45,9 @@ const mapDispatchToProps = (dispatch) => {
       handleLogin: (email, password) => {
           dispatch(loginAction(email, password))
       },
+      handleSignUp: (email, password, username) => {
+        dispatch(signUpAction(email, password, username));
+      }
   }
 }
 
