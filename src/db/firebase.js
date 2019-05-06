@@ -23,26 +23,29 @@ export const getImageCover = (dataFromDatabase, numberOfMovie) => {
 
       dataFromDatabase.forEach((doc) => {
           let movieWithoutCoverURL = doc.data(); 
-        console.log(movieWithoutCoverURL)
+          console.log(movieWithoutCoverURL);
+          
           images.child(`${movieWithoutCoverURL.title.toLowerCase()}.jpg`).getDownloadURL()
           .then((url) => {
-              let movieWithCoverURL = {
+              let movieWithCoverURLandID = {
                   ...movieWithoutCoverURL, 
+                  id: doc.id,
                   coverURL: url
               }
 
-              tempArray.push(movieWithCoverURL);
+              tempArray.push(movieWithCoverURLandID);
 
               if (tempArray.length === numberOfMovie) {
                   resolve(tempArray);
               }
           }).catch(() => {
-              let movieWithCoverURL = {
+              let movieWithCoverURLandID = {
                   ...movieWithoutCoverURL, 
+                  id: doc.id,
                   coverURL: null
               }
 
-              tempArray.push(movieWithCoverURL);
+              tempArray.push(movieWithCoverURLandID);
 
               if (tempArray.length === numberOfMovie) {
                   resolve(tempArray);

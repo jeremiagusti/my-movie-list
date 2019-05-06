@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react'; 
 import { db, getImageCover } from '../db/firebase';
 import Navbar from './Navbar';
-import MovieThumbnail from './movie_modal/MovieThumbnail';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import MovieModal from './movie_modal/MovieModal';
@@ -16,7 +18,7 @@ const Home = (props) => {
     let [movieGrid, setMovieGrid] = useState([]);
 
     useEffect(() => {
-        db.collection("movies").orderBy("year_released", "desc").limit(6).get()
+        db.collection("movies").orderBy("year_released").limit(6).get()
         .then(snapshot => {
             getImageCover(snapshot, 6)
             .then((array) => {
@@ -34,16 +36,17 @@ const Home = (props) => {
     return(
         <div className="home">
             <Navbar />
-            <div className="container">
+            <Container>
                 <h1>List of your favorite shows</h1>
+                <Row>
                 {
                     movieGrid.map((movie, index) => {
-                        return <MovieThumbnail img={movie.coverURL} key={index} />
+                        return <Col sm={2}><MovieModal key={index} movie={movie} /></Col>
                     })
                 }
-
+                </Row>
                 <button onClick={() => console.log(movieGrid)} type="button" className="btn btn-primary">Primary</button>
-            </div>
+            </Container>
         </div>
     )
    
