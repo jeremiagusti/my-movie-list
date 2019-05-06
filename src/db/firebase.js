@@ -14,3 +14,4 @@ firebase.initializeApp(config);
 
 export const db = firebase.firestore(); // Database
 export const auth = firebase.auth(); // Authentication 
+export const images = firebase.storage().ref().child('images'); // Storage
