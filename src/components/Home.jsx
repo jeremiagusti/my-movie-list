@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'; 
-import { db } from '../db/firebase';
+import { db, getImageCover } from '../db/firebase';
 import Navbar from './Navbar';
 import MovieThumbnail from './movie_modal/MovieThumbnail';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import MovieModal from './movie_modal/MovieModal';
 
 
 // Notes 
@@ -12,23 +13,17 @@ import { connect } from 'react-redux';
 // 2. Change the attribute using javascript 
 
 const Home = (props) => {
-    let [grid, setGrid] = useState([]);
+    let [movieGrid, setMovieGrid] = useState([]);
 
     useEffect(() => {
         db.collection("movies").orderBy("year_released", "desc").limit(6).get()
         .then(snapshot => {
-            let array = []
-            snapshot.forEach(doc => {
-                array.push(doc.data())
-            });
-            console.log(array);
-            setGrid(array);
+            getImageCover(snapshot, 6)
+            .then((array) => {
+                setMovieGrid(array);
+            })
         })
     }, []);
-
-    const getImages = grid.map(() => {
-
-    });
 
     if (props.isLoggedIn) {
         return (
@@ -42,10 +37,12 @@ const Home = (props) => {
             <div className="container">
                 <h1>List of your favorite shows</h1>
                 {
-                    
+                    movieGrid.map((movie, index) => {
+                        return <MovieThumbnail img={movie.coverURL} key={index} />
+                    })
                 }
 
-                <button onClick={() => console.log(grid)} type="button" className="btn btn-primary">Primary</button>
+                <button onClick={() => console.log(movieGrid)} type="button" className="btn btn-primary">Primary</button>
             </div>
         </div>
     )
