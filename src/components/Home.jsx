@@ -6,13 +6,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import MovieModal from './movie_modal/MovieModal';
-
-
-// Notes 
-// How to toggle appropriate movie modal? 
-// 1. Select the element using its id 
-// 2. Change the attribute using javascript 
+import MovieThumbnail from './movie_modal/MovieThumbnail';
 
 const Home = (props) => {
     let [movieGrid, setMovieGrid] = useState([]);
@@ -41,11 +35,14 @@ const Home = (props) => {
                 <Row>
                 {
                     movieGrid.map((movie, index) => {
-                        return <Col sm={2}><MovieModal key={index} movie={movie} /></Col>
+                        return <Col sm={2} xs={6} key={index} >
+                            <MovieThumbnail 
+                                movie={movie} 
+                            />
+                        </Col>
                     })
                 }
-                </Row>
-                <button onClick={() => console.log(movieGrid)} type="button" className="btn btn-primary">Primary</button>
+                </Row>                
             </Container>
         </div>
     )
