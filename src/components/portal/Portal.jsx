@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 import { logoutAction } from '../../actions/authAction';
 
-import MovieGrid from '../MovieGrid';
+import PortalHome from './PortalHome';
 import MoviesPortal from './Movies';
 import TVPortal from './TvShows';
 import MyList from './MyList';
@@ -21,7 +21,7 @@ const Portal = (props) => {
     <Router>
         <Navbar handleLogout={props.handleLogout} username={props.username} />
         <div className="container">
-            <Route exact path="/portal" component={MovieGrid} />
+            <Route exact path="/portal" component={PortalHome} />
             <Route path="/portal/movies" component={MoviesPortal} />
             <Route path="/portal/tv" component={TVPortal} />
             <Route path="/portal/mylist" component={MyList} />

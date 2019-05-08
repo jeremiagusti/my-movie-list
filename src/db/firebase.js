@@ -17,40 +17,33 @@ export const auth = firebase.auth(); // Authentication
 export const images = firebase.storage().ref().child('images'); // Storage
 
 // Getting image cover for movies or TV Shows
-export const getImageCover = (dataFromDatabase, numberOfMovie) => {
-  return new Promise((resolve, reject) => {
-      let tempArray = [];
+export const getMovieCover = async (snapshot) => {
+    let moviesWithoutCover = [];
+    let movieWithCover = [];
 
-      dataFromDatabase.forEach((doc) => {
-          let movieWithoutCoverURL = doc.data(); 
-          console.log(movieWithoutCoverURL);
-          
-          images.child(`${movieWithoutCoverURL.title.toLowerCase()}.jpg`).getDownloadURL()
-          .then((url) => {
-              let movieWithCoverURLandID = {
-                  ...movieWithoutCoverURL, 
-                  id: doc.id,
-                  coverURL: url
-              }
+    snapshot.forEach((doc) => {
+        moviesWithoutCover.push({
+            ...doc.data(), 
+            id: doc.id
+        });
+    });
 
-              tempArray.push(movieWithCoverURLandID);
+    for (let i = 0; i < moviesWithoutCover.length; i++) {
+        try {
+            // Getting image for movie 
+            let coverURL = await images.child(`${moviesWithoutCover[i].title.toLowerCase()}.jpg`).getDownloadURL(); 
+            movieWithCover.push({
+                ...moviesWithoutCover[i], 
+                coverURL,
+            })
+        } 
+        catch (error) {
+            movieWithCover.push({
+                ...moviesWithoutCover[i], 
+                coverURL: null,
+            })
+        }
+    }
 
-              if (tempArray.length === numberOfMovie) {
-                  resolve(tempArray);
-              }
-          }).catch(() => {
-              let movieWithCoverURLandID = {
-                  ...movieWithoutCoverURL, 
-                  id: doc.id,
-                  coverURL: null
-              }
-
-              tempArray.push(movieWithCoverURLandID);
-
-              if (tempArray.length === numberOfMovie) {
-                  resolve(tempArray);
-              }
-          })
-      });
-  });
+    return movieWithCover;
 }

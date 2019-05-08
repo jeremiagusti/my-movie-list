@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'; 
-import { db, getImageCover } from '../db/firebase';
+import { db, getMovieCover } from '../db/firebase';
 import Navbar from './Navbar';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -12,13 +12,15 @@ const Home = (props) => {
     let [movieGrid, setMovieGrid] = useState([]);
 
     useEffect(() => {
-        db.collection("movies").orderBy("year_released").limit(6).get()
-        .then(snapshot => {
-            getImageCover(snapshot, 6)
-            .then((array) => {
-                setMovieGrid(array);
-            })
-        })
+        async function getImageCover() {
+            let snapshot = await db.collection("movies").orderBy("year_released").limit(6).get(); 
+            let moviesWithCover = await getMovieCover(snapshot);
+
+            // Set the movieGrid state
+            setMovieGrid(moviesWithCover);
+        };
+        getImageCover();
+        
     }, []);
 
     if (props.isLoggedIn) {
