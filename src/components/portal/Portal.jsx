@@ -9,6 +9,7 @@ import MoviesPortal from './Movies';
 import TVPortal from './TvShows';
 import MyList from './MyList';
 import Navbar from './Navbar';
+import LoadingScreen from '../LoadingScreen';
 
 const Portal = (props) => {
   if (!props.isLoggedIn) {
@@ -25,6 +26,8 @@ const Portal = (props) => {
             <Route path="/portal/movies" component={MoviesPortal} />
             <Route path="/portal/tv" component={TVPortal} />
             <Route path="/portal/mylist" component={MyList} />
+            
+            <Route path ="/portal/spinner" component={LoadingScreen} />
         </div>
     </Router>
   )

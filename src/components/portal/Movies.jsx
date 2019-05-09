@@ -4,6 +4,7 @@ import MovieThumbnail from '../movie_modal/MovieThumbnail';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import LoadingScreen from '../LoadingScreen';
 
 const PortalHome = () => {    
   let [movieGrid, setMovieGrid] = useState([]);
@@ -21,17 +22,27 @@ const PortalHome = () => {
 
     return (
         <Container>
-            <Row>
             {
-                movieGrid.map((movie, index) => {
-                    return <Col sm={2} xs={6} key={index} >
-                        <MovieThumbnail 
-                            movie={movie} 
-                        />
-                    </Col>
-                })
+                movieGrid.length === 0 ? 
+                (
+                    <LoadingScreen />
+                ) : (
+                    <>
+                        <Row>
+                        {
+                            movieGrid.map((movie, index) => {
+                                return <Col sm={2} xs={6} key={index} >
+                                    <MovieThumbnail 
+                                        movie={movie} 
+                                    />
+                                </Col>
+                            })
+                        }
+                        </Row> 
+                    </>                
+                )
             }
-            </Row>            
+                     
         </Container>
     )
 }

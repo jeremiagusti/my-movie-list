@@ -15,7 +15,6 @@ const MovieThumbnail = (props) => {
 
   return (
     <div id={`gridItem-${props.movie.id}`}>
-      <p>{props.movie.title}</p>
       <Image fluid src={props.movie.coverURL} onClick={openModal} />
       <MovieModal movie={props.movie} isShowing={isModalShowing} handleClose={closeModal} />
     </div>

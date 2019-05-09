@@ -4,6 +4,7 @@ import MovieThumbnail from '..//movie_modal/MovieThumbnail';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import LoadingScreen from '../LoadingScreen';
 
 const PortalHome = () => {    
   let [movieGrid, setMovieGrid] = useState([]);
@@ -32,31 +33,41 @@ const PortalHome = () => {
 
     return (
         <Container>
-            <h1>Movies:</h1>
-            <Row>
             {
-                movieGrid.map((movie, index) => {
-                    return <Col sm={2} xs={6} key={index} >
-                        <MovieThumbnail 
-                            movie={movie} 
-                        />
-                    </Col>
-                })
-            }
-            </Row>     
+                movieGrid.length === 0 || tvShows.length === 0 ? 
+                (
+                    <LoadingScreen />
+                ) : (
+                    <>
+                        <h1>Movies:</h1>
+                        <Row>
+                        {
+                            movieGrid.map((movie, index) => {
+                                return <Col sm={2} xs={6} key={index} >
+                                    <MovieThumbnail 
+                                        movie={movie} 
+                                    />
+                                </Col>
+                            })
+                        }
+                        </Row>     
 
-            <h1>TV Shows:</h1>
-            <Row>
-            {
-                tvShows.map((tvshows, index) => {
-                    return <Col sm={2} xs={6} key={index} >
-                        <MovieThumbnail 
-                            movie={tvshows} 
-                        />
-                    </Col>
-                })
+                        <h1>TV Shows:</h1>
+                        <Row>
+                        {
+                            tvShows.map((tvshows, index) => {
+                                return <Col sm={2} xs={6} key={index} >
+                                    <MovieThumbnail 
+                                        movie={tvshows} 
+                                    />
+                                </Col>
+                            })
+                        }
+                        </Row>    
+                    </>                
+                )
             }
-            </Row>             
+                     
         </Container>
     )
 }

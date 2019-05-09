@@ -4,6 +4,7 @@ import MovieThumbnail from '../movie_modal/MovieThumbnail';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import LoadingScreen from '../LoadingScreen';
 
 const PortalHome = () => {    
   let [tvShows, setTvShows] = useState([]);
@@ -21,18 +22,28 @@ const PortalHome = () => {
     }, []);
 
     return (
-        <Container>    
-            <Row>
+        <Container>
             {
-                tvShows.map((tvshows, index) => {
-                    return <Col sm={2} xs={6} key={index} >
-                        <MovieThumbnail 
-                            movie={tvshows} 
-                        />
-                    </Col>
-                })
+                tvShows.length === 0 ? 
+                (
+                    <LoadingScreen />
+                ) : (
+                    <>
+                        <Row>
+                        {
+                            tvShows.map((tvshows, index) => {
+                                return <Col sm={2} xs={6} key={index} >
+                                    <MovieThumbnail 
+                                        movie={tvshows} 
+                                    />
+                                </Col>
+                            })
+                        }
+                        </Row>    
+                    </>                
+                )
             }
-            </Row>             
+                     
         </Container>
     )
 }
