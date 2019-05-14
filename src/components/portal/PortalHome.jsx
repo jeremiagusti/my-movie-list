@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { db, getMovieCover } from "../../db/firebase";
 import { MovieThumbnail, ShowThumbnail } from "../movie_modal/Thumbnail";
-import { getMovieCollection } from "../../actions/movieAction";
+import {
+  getMovieCollection,
+  getShowCollection
+} from "../../actions/movieAction";
 import { connect } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -36,6 +39,7 @@ const PortalHome = props => {
     }
 
     props.getMovieCollection(props.loggedInUserId);
+    props.getShowCollection(props.loggedInUserId);
     getMovieImageCover();
     getTVShowsImageCover();
   }, []);
@@ -62,7 +66,7 @@ const PortalHome = props => {
             {tvShows.map((tvshows, index) => {
               return (
                 <Col sm={2} xs={6} key={index}>
-                  <ShowThumbnail movie={tvshows} />
+                  <ShowThumbnail show={tvshows} />
                 </Col>
               );
             })}
@@ -83,6 +87,10 @@ const mapDispatchToProps = dispatch => {
   return {
     getMovieCollection: loggedInUserId => {
       dispatch(getMovieCollection(loggedInUserId));
+    },
+
+    getShowCollection: loggedInUserId => {
+      dispatch(getShowCollection(loggedInUserId));
     }
   };
 };

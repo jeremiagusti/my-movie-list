@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { db, getMovieCover } from "../../db/firebase";
+import { connect } from "react-redux";
+import { getMovieCollection } from "../../actions/movieAction";
 import { MovieThumbnail } from "../movie_modal/Thumbnail";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import LoadingScreen from "../LoadingScreen";
 
-const PortalHome = () => {
+const Movies = props => {
   let [movieGrid, setMovieGrid] = useState([]);
 
   useEffect(() => {
@@ -20,6 +22,8 @@ const PortalHome = () => {
       // Set the movieGrid state
       setMovieGrid(moviesWithCover);
     }
+
+    props.getMovieCollection(props.loggedInUserId);
     getMovieImageCover();
   }, []);
 
@@ -44,4 +48,21 @@ const PortalHome = () => {
   );
 };
 
-export default PortalHome;
+const mapStateToProps = state => {
+  return {
+    loggedInUserId: state.authReducer.userId
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getMovieCollection: loggedInUserId => {
+      dispatch(getMovieCollection(loggedInUserId));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Movies);

@@ -38,10 +38,10 @@ export const ShowThumbnail = props => {
   };
 
   return (
-    <div id={`thumbnail-${props.movie.id}`}>
-      <Image fluid src={props.movie.coverURL} onClick={openModal} />
+    <div id={`thumbnail-${props.show.id}`}>
+      <Image fluid src={props.show.coverURL} onClick={openModal} />
       <ShowModal
-        movie={props.movie}
+        show={props.show}
         isShowing={isModalShowing}
         handleClose={closeModal}
       />

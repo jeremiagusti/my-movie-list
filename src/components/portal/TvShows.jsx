@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { getShowCollection } from "../../actions/movieAction";
 import { db, getMovieCover } from "../../db/firebase";
 import { ShowThumbnail } from "../movie_modal/Thumbnail";
 import Container from "react-bootstrap/Container";
@@ -6,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import LoadingScreen from "../LoadingScreen";
 
-const PortalHome = () => {
+const TvShows = props => {
   let [tvShows, setTvShows] = useState([]);
 
   useEffect(() => {
@@ -20,6 +22,8 @@ const PortalHome = () => {
       // Set the movieGrid state
       setTvShows(tvWithCover);
     }
+
+    props.getShowCollection(props.loggedInUserId);
     getTVShowsImageCover();
   }, []);
 
@@ -33,7 +37,7 @@ const PortalHome = () => {
             {tvShows.map((tvshows, index) => {
               return (
                 <Col sm={2} xs={6} key={index}>
-                  <ShowThumbnail movie={tvshows} />
+                  <ShowThumbnail show={tvshows} />
                 </Col>
               );
             })}
@@ -44,4 +48,21 @@ const PortalHome = () => {
   );
 };
 
-export default PortalHome;
+const mapStateToProps = state => {
+  return {
+    loggedInUserId: state.authReducer.userId
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getShowCollection: loggedInUserId => {
+      dispatch(getShowCollection(loggedInUserId));
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TvShows);

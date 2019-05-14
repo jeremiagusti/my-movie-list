@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { addMovieToMyCollection } from "../../actions/movieAction";
+import {
+  addMovieToMyCollection,
+  deleteMovieFromCollection
+} from "../../actions/movieAction";
 import { connect } from "react-redux";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -24,6 +27,7 @@ const MovieModal = props => {
   };
 
   const removeMovieFromCollection = async () => {
+    props.deleteMovieFromCollection(props.movie.id, props.userId);
     setIsInMyCollection(false);
   };
 
@@ -79,6 +83,10 @@ const mapDispatchToProps = dispatch => {
     addMovieToMyCollection: (id, oldMovieCollection, userId) => {
       let newCollection = [...oldMovieCollection, id];
       dispatch(addMovieToMyCollection(id, newCollection, userId));
+    },
+
+    deleteMovieFromCollection: (movieId, userId) => {
+      dispatch(deleteMovieFromCollection(movieId, userId));
     }
   };
 };
