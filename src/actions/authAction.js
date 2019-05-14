@@ -1,43 +1,61 @@
-import { auth, db } from '../db/firebase';
+import { auth, db } from "../db/firebase";
 
 export const loginAction = (email, password) => {
-    return (dispatch, getState) => {
-        auth.signInWithEmailAndPassword(email, password)
-        .then((cred) => {
-            return db.collection('users').doc(cred.user.uid).get();
-        })
-        .then((doc) => {
-            dispatch({type: 'LOGIN', payload: {username: doc.data().username}});
-        })
-        .catch(() => {
-            dispatch({type: 'LOGIN_ERR'});
-        })
-    }
-}
+  return (dispatch, getState) => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(cred => {
+        return db
+          .collection("users")
+          .doc(cred.user.uid)
+          .get();
+      })
+      .then(doc => {
+        dispatch({
+          type: "LOGIN",
+          payload: { username: doc.data().username, userId: doc.id }
+        });
+      })
+      .catch(() => {
+        dispatch({ type: "LOGIN_ERR" });
+        dispatch({ type: "RESET" });
+      });
+  };
+};
 
 export const signUpAction = (email, password, username) => {
-    return (dispatch) => {
-        auth.createUserWithEmailAndPassword(email, password)
-        .then((cred) => {
-            return db.collection('users').doc(cred.user.uid).set({username});
-        })
-        .then(() => {
-            return auth.signInWithEmailAndPassword(email, password);
-        })
-        .then((cred) => {
-            return db.collection('users').doc(cred.user.uid).get();
-        })
-        .then((doc) => {
-            dispatch({type: 'LOGIN', payload: {username: doc.data().username}});
-        })
-        .catch(() => {
-            dispatch({type: 'LOGIN_ERR'});
-        })
-    }
-}
+  return dispatch => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(cred => {
+        return db
+          .collection("users")
+          .doc(cred.user.uid)
+          .set({ username, shows: [], movies: [] });
+      })
+      .then(() => {
+        return auth.signInWithEmailAndPassword(email, password);
+      })
+      .then(cred => {
+        return db
+          .collection("users")
+          .doc(cred.user.uid)
+          .get();
+      })
+      .then(doc => {
+        dispatch({
+          type: "LOGIN",
+          payload: { username: doc.data().username, userId: doc.id }
+        });
+      })
+      .catch(() => {
+        dispatch({ type: "LOGIN_ERR" });
+      });
+  };
+};
 
 export const logoutAction = () => {
-    return (dispatch, getState) => {
-        dispatch({type: 'LOGOUT'});
-    }
-}
+  return (dispatch, getState) => {
+    dispatch({ type: "LOGOUT" });
+  };
+};

@@ -20,31 +20,31 @@ const Portal = (props) => {
 
   return(
     <Router>
-        <Navbar handleLogout={props.handleLogout} username={props.username} />
-        <div className="container">
-            <Route exact path="/portal" component={PortalHome} />
-            <Route path="/portal/movies" component={MoviesPortal} />
-            <Route path="/portal/tv" component={TVPortal} />
-            <Route path="/portal/mylist" component={MyList} />
-            
-            <Route path ="/portal/spinner" component={LoadingScreen} />
-        </div>
+      <Navbar handleLogout={props.handleLogout} username={props.username} />
+      <div className="portal container">
+        <Route exact path="/portal" component={PortalHome} />
+        <Route path="/portal/movies" component={MoviesPortal} />
+        <Route path="/portal/tv" component={TVPortal} />
+        <Route path="/portal/mylist" component={MyList} />
+        
+        <Route path ="/portal/spinner" component={LoadingScreen} />
+      </div>
     </Router>
   )
 }
 
 const mapStateToProps = (state) => {
   return {
-      isLoggedIn: state.authReducer.isLoggedIn,
-      username: state.authReducer.username,
+    isLoggedIn: state.authReducer.isLoggedIn,
+    username: state.authReducer.username,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      handleLogout: () => {
-          dispatch(logoutAction())
-      },
+    handleLogout: () => {
+        dispatch(logoutAction())
+    },
   }
 }
 

@@ -17,8 +17,8 @@ const pageStyle = {
 const LoadingScreen = () => {
   return (
     <div style={pageStyle} id="loading-screen">
-        <Spinner style={{marginBottom: "10px"}} animation="border" variant="dark" />
-        <h5>One moment please...</h5>
+      <Spinner style={{marginBottom: "10px"}} animation="border" variant="dark" />
+      <h5>One moment please...</h5>
     </div>
   )
 }

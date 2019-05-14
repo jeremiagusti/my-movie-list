@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 import Form from 'react-bootstrap/Form';
 
 const SignUp = (props) => {
+    const [loadingButton, setLoadingButton] = useState(false);
     const handleSubmit = (e) => {
         e.preventDefault();
+        setLoadingButton(true);
     
         let email = document.getElementById("email").value; 
         let password = document.getElementById("password").value;   
@@ -36,8 +39,23 @@ const SignUp = (props) => {
                         <Form.Control type="text" placeholder="Enter username" id="username" required/>
                     </Form.Group>
 
-                    <Button variant="primary" block={true} type="submit" >
-                        Sign Up
+                    <Button variant="primary" block={true} disabled={loadingButton} type="submit">
+                        {
+                            loadingButton ? (
+                                <>
+                                <Spinner
+                                as="span"
+                                animation="grow"
+                                size="sm"
+                                role="status"
+                                aria-hidden="true"
+                                />
+                                <p style={{display: "inline"}}>Loading...</p>
+                            </>                                
+                            ) : (
+                                <p style={{display: "inline"}}>Sign Up</p>
+                            )
+                        }
                     </Button>
                 </Form>
             </Modal.Body>
