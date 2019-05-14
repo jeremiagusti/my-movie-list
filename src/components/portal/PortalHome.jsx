@@ -25,6 +25,7 @@ const PortalHome = props => {
 
       // Set the movieGrid state
       setMovieGrid(moviesWithCover);
+      console.log(movieGrid);
     }
 
     async function getTVShowsImageCover() {

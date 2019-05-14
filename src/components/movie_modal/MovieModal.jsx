@@ -27,8 +27,14 @@ const MovieModal = props => {
   };
 
   const removeMovieFromCollection = async () => {
-    props.deleteMovieFromCollection(props.movie.id, props.userId);
-    setIsInMyCollection(false);
+    if (props.deleteFromMyList !== undefined) {
+      // await props.deleteMovieFromCollection(props.movie.id, props.userId);
+      await props.deleteFromMyList(props.movie.id, props.userId);
+      setIsInMyCollection(false);
+    } else {
+      await props.deleteMovieFromCollection(props.movie.id, props.userId);
+      setIsInMyCollection(false);
+    }
   };
 
   return (

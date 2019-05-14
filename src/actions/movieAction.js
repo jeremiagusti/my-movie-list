@@ -7,6 +7,7 @@ export const getMovieCollection = userId => {
     try {
       const dataFromUserDB = await userRef.get();
       const moviesCollection = dataFromUserDB.data().movies;
+      console.log("Movies getMovieCollection");
       console.log(moviesCollection);
       dispatch({
         type: "GET_MOVIE_COLLECTION_FROM_DATABASE",
@@ -50,13 +51,14 @@ export const deleteMovieFromCollection = (deletedMovieId, userId) => {
     const userRef = db.collection("users").doc(userId);
     const dataFromUserDB = await userRef.get();
     const movieCollection = dataFromUserDB.data().movies;
+    console.log("Movies deleteMovieCollection");
 
     const filteredMovieCollection = movieCollection.filter(
       movieId => movieId !== deletedMovieId
     );
 
     // Update database
-    userRef.update({ movies: filteredMovieCollection });
+    await userRef.update({ movies: filteredMovieCollection });
 
     // Update state
     dispatch({
@@ -76,7 +78,6 @@ export const getShowCollection = userId => {
     try {
       const dataFromUserDB = await userRef.get();
       const showsCollection = dataFromUserDB.data().shows;
-      console.log(showsCollection);
       dispatch({
         type: "GET_SHOW_COLLECTION_FROM_DATABASE",
         payload: {

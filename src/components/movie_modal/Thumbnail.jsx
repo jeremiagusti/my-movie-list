@@ -21,6 +21,7 @@ export const MovieThumbnail = props => {
         movie={props.movie}
         isShowing={isModalShowing}
         handleClose={closeModal}
+        deleteFromMyList={props.deleteFromMyList}
       />
     </div>
   );
