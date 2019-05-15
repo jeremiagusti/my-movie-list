@@ -8,7 +8,7 @@ const collectionReducer = (state = initState, action) => {
     case "ADD_MOVIE_TO_COLLECTION":
       return {
         ...state,
-        movies: action.payload.newCollection
+        movies: action.payload.movies
       };
 
     case "GET_MOVIE_COLLECTION_FROM_DATABASE":
@@ -20,7 +20,7 @@ const collectionReducer = (state = initState, action) => {
     case "REMOVE_MOVIE_FROM_COLLECTION":
       return {
         ...state,
-        movies: action.payload.filteredMovieCollection
+        movies: action.payload.movies
       };
 
     case "GET_SHOW_COLLECTION_FROM_DATABASE":
@@ -32,13 +32,13 @@ const collectionReducer = (state = initState, action) => {
     case "ADD_SHOW_TO_COLLECTION":
       return {
         ...state,
-        shows: action.payload.newCollection
+        shows: action.payload.shows
       };
 
     case "REMOVE_SHOW_FROM_COLLECTION":
       return {
         ...state,
-        shows: action.payload.filteredShowCollection
+        shows: action.payload.shows
       };
 
     default:

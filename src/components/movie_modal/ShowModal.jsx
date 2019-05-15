@@ -12,22 +12,26 @@ const MovieModal = props => {
   const [isInMyCollection, setIsInMyCollection] = useState(false);
 
   useEffect(() => {
-    if (props.showCollection.includes(props.show.id)) {
-      setIsInMyCollection(true);
+    for (let i = 0; i < props.showCollection.length; i++) {
+      const showIdInCollection = props.showCollection[i].id;
+      if (props.show.id === showIdInCollection) {
+        setIsInMyCollection(true);
+      }
     }
   }, []);
 
   const addShowToCollection = async () => {
-    await props.addShowToMyCollection(
-      props.show.id,
-      props.showCollection,
-      props.userId
-    );
+    props.addShowToMyCollection(props.show, props.userId, props.showCollection);
     setIsInMyCollection(true);
   };
 
   const removeShowFromCollection = async () => {
-    props.deleteShowFromCollection(props.show.id, props.userId);
+    props.handleClose();
+    props.deleteShowFromCollection(
+      props.show,
+      props.userId,
+      props.showCollection
+    );
     setIsInMyCollection(false);
   };
 
@@ -80,13 +84,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addShowToMyCollection: (id, oldShowCollection, userId) => {
-      let newCollection = [...oldShowCollection, id];
-      dispatch(addShowToMyCollection(id, newCollection, userId));
+    addShowToMyCollection: (show, userId, oldCollection) => {
+      dispatch(addShowToMyCollection(show, userId, oldCollection));
     },
 
-    deleteShowFromCollection: (showId, userId) => {
-      dispatch(deleteShowFromCollection(showId, userId));
+    deleteShowFromCollection: (show, userId, oldCollection) => {
+      dispatch(deleteShowFromCollection(show, userId, oldCollection));
     }
   };
 };

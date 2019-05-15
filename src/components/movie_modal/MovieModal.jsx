@@ -12,29 +12,31 @@ const MovieModal = props => {
   const [isInMyCollection, setIsInMyCollection] = useState(false);
 
   useEffect(() => {
-    if (props.movieCollection.includes(props.movie.id)) {
-      setIsInMyCollection(true);
+    for (let i = 0; i < props.movieCollection.length; i++) {
+      const movieIdInCollection = props.movieCollection[i].id;
+      if (props.movie.id === movieIdInCollection) {
+        setIsInMyCollection(true);
+      }
     }
   }, []);
 
   const addMovieToCollection = async () => {
-    await props.addMovieToMyCollection(
-      props.movie.id,
-      props.movieCollection,
-      props.userId
+    props.addMovieToMyCollection(
+      props.movie,
+      props.userId,
+      props.movieCollection
     );
     setIsInMyCollection(true);
   };
 
   const removeMovieFromCollection = async () => {
-    if (props.deleteFromMyList !== undefined) {
-      // await props.deleteMovieFromCollection(props.movie.id, props.userId);
-      await props.deleteFromMyList(props.movie.id, props.userId);
-      setIsInMyCollection(false);
-    } else {
-      await props.deleteMovieFromCollection(props.movie.id, props.userId);
-      setIsInMyCollection(false);
-    }
+    props.handleClose();
+    props.deleteMovieFromCollection(
+      props.movie,
+      props.userId,
+      props.movieCollection
+    );
+    setIsInMyCollection(false);
   };
 
   return (
@@ -86,13 +88,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addMovieToMyCollection: (id, oldMovieCollection, userId) => {
-      let newCollection = [...oldMovieCollection, id];
-      dispatch(addMovieToMyCollection(id, newCollection, userId));
+    addMovieToMyCollection: (movie, userId, oldCollection) => {
+      dispatch(addMovieToMyCollection(movie, userId, oldCollection));
     },
 
-    deleteMovieFromCollection: (movieId, userId) => {
-      dispatch(deleteMovieFromCollection(movieId, userId));
+    deleteMovieFromCollection: (movie, userId, oldCollection) => {
+      dispatch(deleteMovieFromCollection(movie, userId, oldCollection));
     }
   };
 };
