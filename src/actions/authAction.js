@@ -13,7 +13,7 @@ export const loginAction = (email, password) => {
       .then(doc => {
         dispatch({
           type: "LOGIN",
-          payload: { username: doc.data().username, userId: doc.id }
+          payload: { username: doc.data().username, userId: doc.id, email }
         });
       })
       .catch(() => {
@@ -45,7 +45,7 @@ export const signUpAction = (email, password, username) => {
       .then(doc => {
         dispatch({
           type: "LOGIN",
-          payload: { username: doc.data().username, userId: doc.id }
+          payload: { username: doc.data().username, userId: doc.id, email }
         });
       })
       .catch(() => {

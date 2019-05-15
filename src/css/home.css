@@ -1,0 +1,14 @@
+.home {
+  height: 100vh;
+}
+
+.home h1 {
+  text-align: center;
+  margin-top: 15%;
+  text-transform: uppercase;
+}
+
+.home h2 {
+  text-align: center;
+  text-transform: uppercase;
+}

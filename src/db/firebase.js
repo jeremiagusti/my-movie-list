@@ -31,8 +31,6 @@ export const getMovieCover = async snapshot => {
     });
   });
 
-  console.log(moviesWithoutCover);
-
   for (let i = 0; i < moviesWithoutCover.length; i++) {
     try {
       // Getting image for movie

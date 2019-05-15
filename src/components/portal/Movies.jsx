@@ -29,6 +29,7 @@ const Movies = props => {
 
   return (
     <Container>
+      <h3>TV SHOWS</h3>
       {movieGrid.length === 0 ? (
         <LoadingScreen />
       ) : (
@@ -36,7 +37,7 @@ const Movies = props => {
           <Row>
             {movieGrid.map((movie, index) => {
               return (
-                <Col sm={2} xs={6} key={index}>
+                <Col className="thumbnail" sm={2} xs={6} key={index}>
                   <MovieThumbnail movie={movie} />
                 </Col>
               );

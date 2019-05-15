@@ -1,0 +1,14 @@
+.thumbnail:hover {
+  cursor: pointer;
+  background-color: red;
+}
+
+.thumbnail {
+  padding: 5px;
+}
+
+h3 {
+  text-align: center;
+  text-transform: uppercase;
+  margin: 10px 0;
+}

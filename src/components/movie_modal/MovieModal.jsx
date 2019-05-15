@@ -61,6 +61,14 @@ const MovieModal = props => {
         <div className="text" style={{ margin: "10px 0 0 0" }}>
           <h6>Description: </h6>
           <p>{props.movie.overview}</p>
+          <hr />
+          <ul>
+            <li>Year Released: {props.movie.year_released}</li>
+            <li>Director: {props.movie.director}</li>
+            <li>Casts: {props.movie.casts.join(", ")}</li>
+
+            <li>Genre: {props.movie.genre}</li>
+          </ul>
         </div>
       </Modal.Body>
       <Modal.Footer>

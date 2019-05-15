@@ -51,22 +51,22 @@ const PortalHome = props => {
         <LoadingScreen />
       ) : (
         <>
-          <h1>Movies:</h1>
+          <h3>Movies</h3>
           <Row>
             {movieGrid.map((movie, index) => {
               return (
-                <Col sm={2} xs={6} key={index}>
+                <Col className="thumbnail" sm={2} xs={6} key={index}>
                   <MovieThumbnail movie={movie} />
                 </Col>
               );
             })}
           </Row>
-
-          <h1>TV Shows:</h1>
+          <hr />
+          <h3>TV Shows</h3>
           <Row>
             {tvShows.map((tvshows, index) => {
               return (
-                <Col sm={2} xs={6} key={index}>
+                <Col className="thumbnail" sm={2} xs={6} key={index}>
                   <ShowThumbnail show={tvshows} />
                 </Col>
               );

@@ -29,6 +29,7 @@ const TvShows = props => {
 
   return (
     <Container>
+      <h3>TV SHOWS</h3>
       {tvShows.length === 0 ? (
         <LoadingScreen />
       ) : (
@@ -36,7 +37,7 @@ const TvShows = props => {
           <Row>
             {tvShows.map((tvshows, index) => {
               return (
-                <Col sm={2} xs={6} key={index}>
+                <Col className="thumbnail" sm={2} xs={6} key={index}>
                   <ShowThumbnail show={tvshows} />
                 </Col>
               );

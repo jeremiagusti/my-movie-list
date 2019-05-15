@@ -2,6 +2,7 @@ const initState = {
   userId: null,
   isLoggedIn: false,
   username: "",
+  email: "",
   wrongCred: undefined
 };
 
@@ -12,6 +13,7 @@ const authReducer = (state = initState, action) => {
       return {
         ...state,
         isLoggedIn: true,
+        email: action.payload.email,
         userId: action.payload.userId,
         username: action.payload.username,
         wrongCred: undefined
