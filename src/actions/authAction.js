@@ -55,7 +55,8 @@ export const signUpAction = (email, password, username) => {
 };
 
 export const logoutAction = () => {
-  return (dispatch, getState) => {
+  return async (dispatch, getState) => {
+    await auth.signOut();
     dispatch({ type: "LOGOUT" });
   };
 };
