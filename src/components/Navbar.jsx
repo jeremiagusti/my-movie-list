@@ -24,7 +24,7 @@ const Navigation = props => {
   return (
     <>
       <Navbar bg="light" expand="md">
-        <Navbar.Brand href="#home">Netflix</Navbar.Brand>
+        <Navbar.Brand href="#home">My Movie List</Navbar.Brand>
         <Nav className="ml-auto">
           <Button
             className="ml-auto my-2 mx-2 my-sm-0"

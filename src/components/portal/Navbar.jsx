@@ -21,7 +21,7 @@ const Navigation = props => {
   return (
     <>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="#home">Netflix</Navbar.Brand>
+        <Navbar.Brand href="#home">My Movie List</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">

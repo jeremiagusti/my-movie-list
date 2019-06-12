@@ -14,7 +14,7 @@ const Home = props => {
     <div className="home">
       <Navbar />
       <Container>
-        <h1>Welcome to Netflix</h1>
+        <h1>Welcome to My Movie List</h1>
         <h2>List of your favorite shows</h2>
       </Container>
     </div>
