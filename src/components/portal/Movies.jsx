@@ -29,7 +29,7 @@ const Movies = props => {
 
   return (
     <Container>
-      <h3>TV SHOWS</h3>
+      <h3>Movies</h3>
       {movieGrid.length === 0 ? (
         <LoadingScreen />
       ) : (
